@@ -47,26 +47,26 @@ constexpr TypeId kFunctionTypeId = 0x60;
 constexpr TypeId kResultTypeId = 0x40;
 
 // 0x7A-0x71 reserved
-typedef void *address;
 class Reference {
-  address
+  void *address;
 };
 
+union Slot {
+  Reference ref_val;
+  i32 i32_val;
+  i64 i64_val;
+  f32 f32_val;
+  f64 f64_val;
+  v128 v128_val;
+};
 class Value {
   TypeId id_;
-  union Slot {
-    Reference ref_val;
-    i32 i32_val;
-    i64 i64_val;
-    f32 f32_val;
-    f64 f64_val;
-    v128 v128_val;
-  };
+
   Slot s_;
 };
 
 class Result {
-  std::vector<ValueType> values_;
+  std::vector<Value> values_;
 };
 
 class Function {
@@ -82,8 +82,8 @@ class Limits {
 class Table {};
 
 class Global {
-  bool is_mutable;
-  Value;
+  bool is_mutable_;
+  Value val_;
 };
 
 class External {};
