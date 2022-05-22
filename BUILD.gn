@@ -1,0 +1,15 @@
+shared_library("wasmaid") {
+  include_dirs = [ "//" ]
+  sources = [
+    "//wasmaid/tools/byte_ops.cpp",
+    "//wasmaid/tools/leb128.cpp",
+  ]
+}
+
+executable("leb128_unittest") {
+  include_dirs = [ "//" ]
+  sources = [ "//test/tools/leb128.cpp" ]
+  configs += [ "//buildconfig:gtest" ]
+
+  deps = [ ":wasmaid" ]
+}
